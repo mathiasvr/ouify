@@ -4,6 +4,7 @@
 Annotate MAC addresses with vendor names,
 similar to Wireshark captures, based on OUI/IAB data.
 """
+import os
 import sys
 import argparse
 from manuf import manuf # pip3 install git+https://github.com/coolbho3k/manuf
@@ -17,8 +18,12 @@ parser.add_argument('-f', '--full', action='store_true', help='print whole MAC a
 parser.add_argument('-u', '--update', action='store_true', help='update Wireshark OUI definition file')
 args = parser.parse_args()
 
+# OUI path
+scriptPath = os.path.dirname(os.path.realpath(__file__))
+ouiPath = os.path.join(scriptPath, "ws_oui.txt")
+
 try:
-    parser = manuf.MacParser(manuf_name='ws_oui.txt', update=args.update)
+    parser = manuf.MacParser(manuf_name=ouiPath, update=args.update)
     if args.update:
         print("OUI definitions updated.")
         exit(0)

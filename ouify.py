@@ -45,5 +45,7 @@ for line in sys.stdin:
         else:
             print(insertSeparators(mac))
 
+        sys.stdout.flush()
+
     except ValueError as err:
         print('Could not parse MAC: ' + line)
